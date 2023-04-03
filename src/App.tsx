@@ -1,15 +1,17 @@
 import './App.scss';
 import Header from './components/Header';
 import PodcastList from './components/PodcastList';
-import useData from './hooks/useData';
+import Search from './components/Search';
+import useSearch from './hooks/useSearch';
 
 function App() {
-  const { podcastList } = useData();
+  const { searchText, searchResults, handleChange } = useSearch();
 
   return (
     <div className="App">
       <Header title="Podcaster" link="/" />
-      <PodcastList podcastList={podcastList} />
+      <Search results={searchResults} searchText={searchText} handleChange={handleChange} />
+      <PodcastList podcastList={searchResults} />
     </div>
   );
 }

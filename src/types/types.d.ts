@@ -3,6 +3,12 @@ interface HeaderProps {
   link: string;
 }
 
+interface SearchProps {
+  results: PodcastProps[],
+  searchText: string,
+  handleChange: Function
+}
+
 interface PodcastProps {
   category: {
     attributes: {
