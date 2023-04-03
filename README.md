@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# Music Podcast
+
+## Description
+An application that shows the updated list of the 100 most popular podcasts according to the list of Apple
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
