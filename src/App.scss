@@ -4,12 +4,19 @@ $gray: #c8c8c8;
 
 // VARIABLES
 $border: 1px solid $gray;
+$boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 
 // MIXINS
 @mixin display($justify, $items) {
   display: flex;
   justify-content: $justify;
   align-items: $items;
+}
+
+@mixin widthContainer {
+  width: 100%;
+  max-width: 64em;
 }
 
 .App {
@@ -20,8 +27,7 @@ $border: 1px solid $gray;
     .header__logo {
       text-align: left;
       padding: 0.5em;
-      width: 100%;
-      max-width: 64rem;
+      @include widthContainer;
       .header__logo-link {
         color: $blue;
         text-decoration: none;
@@ -30,6 +36,28 @@ $border: 1px solid $gray;
           font-size: calc(10px + 2vmin);
           font-weight: bold;
         }
+      }
+    }
+  }
+  .podcasts {
+    @include display(center, unset);
+    flex-wrap: wrap;
+    margin: 1em auto;
+    @include widthContainer;
+    .podcast {
+      flex-basis: calc(100% / 3 - 102px);
+      margin: 4.5em 0.5em 0.5em;
+      padding: 1em;
+      box-shadow: $boxShadow;
+      border-radius: 0.25em;
+      box-sizing: border-box;
+      min-width: 14em;
+      .podcast__image {
+        border-radius: 50%;
+        border: $border;
+        position: static;
+        margin-top: -35%;
+        object-fit: cover;
       }
     }
   }
