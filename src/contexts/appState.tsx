@@ -12,6 +12,7 @@ const AppStateProvider = ({ children }: AppStateProviderProps) => {
 
   const setSelectedPodcast = (podcast: PodcastProps | undefined) => {
     updateSelectedPodcast(podcast);
+    localStorage.setItem('selectedPodcast', JSON.stringify(podcast));
   }
 
   return (

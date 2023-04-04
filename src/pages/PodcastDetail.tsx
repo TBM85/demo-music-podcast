@@ -1,10 +1,7 @@
-import { useContext } from "react";
-import { AppStateContext } from "../contexts/appState";
+import useData from "../hooks/useData";
 
 const PodcastDetail = () => {
-  const {
-    selectedPodcast,
-  } = useContext(AppStateContext);
+  const { selectedPodcast } = useData();
 
   return (
     <>

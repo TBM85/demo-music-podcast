@@ -3,6 +3,7 @@ import { fetchPodcastListData } from "../utils/api";
 
 const useData = () => {
   const [podcastList, setPodcastList] = useState<PodcastProps[]>([]);
+  const [selectedPodcast, setSelectedPodcast] = useState<PodcastProps>();
 
   // make a request to the API to get the list of podcasts
   const getPodcastListFromAPI = async () => {
@@ -26,6 +27,14 @@ const useData = () => {
     }
   };
 
+  // make a request to localStorage to get the details of the selected podcast
+  const getSelectedPodcastFromLocalStorage = () => {
+    const podcast = localStorage.getItem("selectedPodcast");
+    if (podcast) {
+      setSelectedPodcast(JSON.parse(podcast));
+    }
+  };
+
   // returns "true" if the difference between the current time and the time of the last API update request 
   // is greater than 24 hours; otherwise, it returns "false"
   const isDiffMoreThanDay = useCallback(() => {
@@ -46,8 +55,13 @@ const useData = () => {
     }
   }, [isDiffMoreThanDay]);
 
+  useEffect(() => {
+    getSelectedPodcastFromLocalStorage();
+  }, []);
+
   return {
-    podcastList
+    podcastList,
+    selectedPodcast
   }
 };
 
