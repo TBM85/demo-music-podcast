@@ -1,9 +1,11 @@
 // COLORS
 $blue: #0038a9;
 $gray: #c8c8c8;
+$white: #fff;
 
 // VARIABLES
 $border: 1px solid $gray;
+$borderRadius: 0.25em;
 $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
 rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 
@@ -17,6 +19,19 @@ rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 @mixin widthContainer {
   width: 100%;
   max-width: 64em;
+}
+
+// MEDIA QUERIES
+@media (min-width: 576px) {
+  .search__filter {
+    text-align: right;
+  }
+}
+
+@media (max-width: 575px) {
+  .search__filter {
+    margin-top: 2em;
+  }
 }
 
 .App {
@@ -39,6 +54,28 @@ rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
       }
     }
   }
+  .search {
+    @include display(center, center);
+    .search__filter {
+      padding: 0.5em;
+      @include widthContainer;
+      .search__badge,
+      .search__input {
+        padding: 0.25em 0.5em;
+        border-radius: $borderRadius;
+      }
+      .search__badge {
+        background-color: $blue;
+        color: $white;
+        font-weight: bold;
+      }
+      .search__input {
+        font-size: 1.2em;
+        border: $border;
+        margin: 0.25em;
+      }
+    }
+  }
   .podcasts {
     @include display(center, unset);
     flex-wrap: wrap;
@@ -49,11 +86,11 @@ rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
       margin: 4.5em 0.5em 0.5em;
       padding: 1em;
       box-shadow: $boxShadow;
-      border-radius: 0.25em;
+      border-radius: $borderRadius;
       box-sizing: border-box;
       min-width: 14em;
       .podcast__image {
-        border-radius: 50%;
+        border-radius: $borderRadius * 24;
         border: $border;
         position: static;
         margin-top: -35%;
