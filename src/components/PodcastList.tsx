@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppStateContext } from "../contexts/appState";
+import Img from "./Img";
 
 const PodcastList = (props: { podcastList: PodcastProps[] }) => {
   const navigate = useNavigate();
@@ -22,14 +23,8 @@ const PodcastList = (props: { podcastList: PodcastProps[] }) => {
             key={`data-item-${item.id.attributes["im:id"]}`}
             onClick={() => handlePodcastClick(item)}
           >
-            {item["im:image"][0].label && (
-              <img
-                src={item["im:image"][2].label}
-                alt={item["im:name"].label}
-                height={item["im:image"][2].attributes.height}
-                width={item["im:image"][2].attributes.height}
-                className="podcast__image"
-              />
+            {item["im:image"][2].label && (
+              <Img data={item} className="round-image" />
             )}
             {item["im:name"] && (
               <h2 className="podcast__title">

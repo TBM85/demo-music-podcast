@@ -90,12 +90,17 @@ rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
       box-sizing: border-box;
       min-width: 14em;
       .podcast__image {
-        border-radius: $borderRadius * 24;
         border: $border;
         position: static;
         margin-top: -35%;
         object-fit: cover;
       }
     }
+  }
+  .round-image {
+    border-radius: $borderRadius * 24;
+  }
+  .square-image {
+    border-radius: $borderRadius;
   }
 }
