@@ -1,17 +1,20 @@
+import { Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Header from './components/Header';
-import PodcastList from './components/PodcastList';
-import Search from './components/Search';
-import useSearch from './hooks/useSearch';
+import PodcastMain from './pages/PodcastMain';
+import PodcastDetail from './pages/PodcastDetail';
+import AppStateProvider from './contexts/appState';
 
-function App() {
-  const { searchText, searchResults, handleChange } = useSearch();
-
+function App() {  
   return (
     <div className="App">
       <Header title="Podcaster" link="/" />
-      <Search results={searchResults} searchText={searchText} handleChange={handleChange} />
-      <PodcastList podcastList={searchResults} />
+      <AppStateProvider>
+        <Routes>
+          <Route path='/' element={<PodcastMain />} />
+          <Route path='/podcast/:id' element={<PodcastDetail />} />
+        </Routes>
+      </AppStateProvider>
     </div>
   );
 }

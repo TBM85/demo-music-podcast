@@ -1,3 +1,12 @@
+interface AppStateProviderProps {
+  children: React.ReactNode;
+}
+
+interface AppStateConfig {
+  selectedPodcast: PodcastProps | undefined;
+  setSelectedPodcast: (podcast: PodcastProps | undefined) => void;
+}
+
 interface HeaderProps {
   title: string;
   link: string;
