@@ -19,7 +19,7 @@ const PodcastList = (props: { podcastList: PodcastProps[] }) => {
       {props.podcastList.length !== 0 ? (
         props.podcastList.map((item) => (
           <div
-            className="podcast"
+            className="card podcast"
             key={`data-item-${item.id.attributes["im:id"]}`}
             onClick={() => handlePodcastClick(item)}
           >
@@ -32,10 +32,12 @@ const PodcastList = (props: { podcastList: PodcastProps[] }) => {
               </h2>
             )}
             {item["im:artist"] && (
-              <span className="podcast__author">
-                <strong>Author: </strong>
-                {item["im:artist"].label}
-              </span>
+              <div className="podcast__author">
+                <h4>Author: </h4>
+                <span>
+                  {item["im:artist"].label}
+                </span>
+              </div>
             )}
           </div>
         ))

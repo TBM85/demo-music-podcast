@@ -5,11 +5,11 @@ const PodcastDetail = () => {
   const { selectedPodcast } = useData();
 
   return (
-    <>
+    <div className="podcast__details">
       {selectedPodcast && (
         <DetailsCard item={selectedPodcast} />
       )}
-    </>
+    </div>
   )
 }
 
