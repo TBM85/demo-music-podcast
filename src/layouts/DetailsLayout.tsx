@@ -2,11 +2,11 @@ import PodcastDetailsCard from "../components/PodcastDetailsCard";
 import useData from "../hooks/useData";
 
 const Layout = ({ children }: Props) => {
-  const { selectedPodcast, selectedPodcastEpisodes } = useData();
+  const { selectedPodcast, podcastEpisodes } = useData();
 
   return (
     <div className="podcast-details-episodes">
-      {selectedPodcast && selectedPodcastEpisodes ? (
+      {selectedPodcast && podcastEpisodes ? (
         <div className="podcast-details-episodes__container">
           <div className="podcast-details__card">
             <PodcastDetailsCard item={selectedPodcast} />

@@ -6,11 +6,11 @@ import {
 import { useParams } from "react-router-dom";
 
 const useData = () => {
-  const { podcastId } = useParams();
+  const { podcastId, episodeId } = useParams();
   const [podcastList, setPodcastList] = useState<PodcastProps[]>([]);
   const [selectedPodcast, setSelectedPodcast] = useState<PodcastProps>();
-  const [selectedPodcastEpisodes, setSelectedPodcastEpisodes] =
-    useState<EpisodeProps[]>();
+  const [podcastEpisodes, setPodcastEpisodes] = useState<EpisodeProps[]>();
+  const [selectedEpisode, setSelectedEpisode] = useState<EpisodeProps>();
 
   // make an API request to get the list of podcasts
   const getPodcastListFromAPI = useCallback(async () => {
@@ -24,7 +24,7 @@ const useData = () => {
       const podcastEpisodesData = await fetchPodcastEpisodesListData(
         Number(podcastId)
       );
-      setSelectedPodcastEpisodes(podcastEpisodesData);
+      setPodcastEpisodes(podcastEpisodesData);
     }
   }, [podcastId]);
 
@@ -40,7 +40,7 @@ const useData = () => {
   const getPodcastEpisodesFromLocalStorage = () => {
     const dataPodcastEpisodesArr = localStorage.getItem("episodesArr");
     if (dataPodcastEpisodesArr) {
-      setSelectedPodcastEpisodes(JSON.parse(dataPodcastEpisodesArr));
+      setPodcastEpisodes(JSON.parse(dataPodcastEpisodesArr));
     }
   };
 
@@ -53,6 +53,16 @@ const useData = () => {
       setSelectedPodcast(podcastWithSelectedId);
     }
   }, [podcastId, podcastList]);
+
+  // get the details of the selected episode
+  const getSelectedEpisode = useCallback(() => {
+    if (episodeId && podcastEpisodes) {
+      const episodeWithSelectedId = podcastEpisodes.find(
+        (episode) => episode.trackId === Number(episodeId)
+      );
+      setSelectedEpisode(episodeWithSelectedId);
+    }
+  }, [episodeId, podcastEpisodes]);
 
   // make a request to localStorage to get the time of the last API update request
   const getLastUpdatedDate = (name: string) => {
@@ -116,10 +126,15 @@ const useData = () => {
     getSelectedPodcast();
   }, [getSelectedPodcast]);
 
+  useEffect(() => {
+    getSelectedEpisode();
+  }, [getSelectedEpisode]);
+
   return {
     podcastList,
     selectedPodcast,
-    selectedPodcastEpisodes,
+    podcastEpisodes,
+    selectedEpisode,
   };
 };
 

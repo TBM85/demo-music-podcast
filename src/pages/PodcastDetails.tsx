@@ -5,21 +5,17 @@ import Layout from "../layouts/MainLayout";
 import DetailsLayout from "../layouts/DetailsLayout";
 
 const PodcastDetail = () => {
-  const { selectedPodcastEpisodes } = useData();
+  const { podcastEpisodes } = useData();
 
   return (
     <Layout>
       <DetailsLayout>
         <div className="podcast-episodes__container">
           <div className="podcast-episodes__amount">
-            <EpisodesAmountCard
-              item={selectedPodcastEpisodes as EpisodeProps[]}
-            />
+            <EpisodesAmountCard item={podcastEpisodes as EpisodeProps[]} />
           </div>
           <div className="podcast-episodes__list">
-            <EpisodesListCard
-              item={selectedPodcastEpisodes as EpisodeProps[]}
-            />
+            <EpisodesListCard item={podcastEpisodes as EpisodeProps[]} />
           </div>
         </div>
       </DetailsLayout>

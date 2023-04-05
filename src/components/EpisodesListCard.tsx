@@ -26,18 +26,19 @@ const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
           </tr>
         </thead>
         <tbody>
-          {item.map((episode: EpisodeProps) => (
-            <tr key={`episode-item-${episode.trackId}`}>
-              <td
-                className="episode-item__link"
-                onClick={() => handleClick(episode)}
-              >
-                {episode.trackName}
-              </td>
-              <td>{dateFormat(episode.releaseDate)}</td>
-              <td>{timeFormat(episode.trackTimeMillis)}</td>
-            </tr>
-          ))}
+          {item &&
+            item.map((episode: EpisodeProps) => (
+              <tr key={`episode-item-${episode.trackId}`}>
+                <td
+                  className="episode-item__link"
+                  onClick={() => handleClick(episode)}
+                >
+                  {episode.trackName}
+                </td>
+                <td>{dateFormat(episode.releaseDate)}</td>
+                <td>{timeFormat(episode.trackTimeMillis)}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
