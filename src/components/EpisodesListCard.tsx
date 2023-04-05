@@ -1,4 +1,4 @@
-import { dateFormat } from "../utils/utils";
+import { dateFormat, timeFormat } from "../utils/utils";
 
 const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
   const { item } = props;
@@ -18,7 +18,7 @@ const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
             <tr key={`episode-item-${episode.trackId}`}>
               <td>{episode.trackName}</td>
               <td>{dateFormat(episode.releaseDate)}</td>
-              <td>{episode.trackTimeMillis}</td>
+              <td>{timeFormat(episode.trackTimeMillis)}</td>
             </tr>
           ))}
         </tbody>
