@@ -31,6 +31,22 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
 }
 
 // MEDIA QUERIES
+@media (min-width: 768px) {
+  .podcast {
+    width: 20em;
+  }
+  .podcast-details-episodes__container {
+    @include display(space-between, unset);
+  }
+}
+
+@media (max-width: 767px) {
+  .podcast-details-episodes__container {
+    @include display(center, unset);
+    flex-wrap: wrap;
+  }
+}
+
 @media (min-width: 576px) {
   .search__filter {
     text-align: right;
@@ -43,6 +59,7 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
   }
 }
 
+// GENERAL STYLES
 .App {
   text-align: center;
   color: $black;
@@ -93,7 +110,7 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     @include widthContainer;
     .podcast {
       flex-basis: calc(100% / 3 - 102px);
-      margin: 4.5em 0.5em 0.5em;
+      margin-top: 4.5em;
       cursor: pointer;
       .podcast__image {
         position: static;
@@ -107,6 +124,7 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     }
   }
   .podcast {
+    word-wrap: break-word;
     .podcast__image {
       border: $border;
       object-fit: cover;
@@ -122,32 +140,37 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
       }
     }
   }
-  .podcast__details {
-    @include display(center, center);
-    .details__card {
+  .podcast-details-episodes {
+    @include display(center, unset);
+    .podcast-details-episodes__container {
       @include widthContainer;
-      .podcast {
-        margin: 2em 0.5em;
-        width: 20em;
-        .podcast__title,
-        .podcast__author,
-        .podcast__description {
-          display: block;
-          text-align: left;
+      margin: 2em 0.5em;
+      .podcast-details__card {
+        .podcast {
+          .podcast__title,
+          .podcast__author,
+          .podcast__description {
+            display: block;
+            text-align: left;
+          }
+          .podcast__title {
+            margin-bottom: 0.25em;
+          }
+          .podcast__author {
+            @include lightText(italic);
+          }
+          .podcast__description p {
+            @include lightText(italic);
+          }
+          .podcast__line {
+            border-bottom: $border;
+            margin: 1em auto;
+          }
         }
-        .podcast__title {
-          margin-bottom: 0.25em;
-        }
-        .podcast__author {
-          @include lightText(italic);
-        }
-        .podcast__description p {
-          @include lightText(italic);
-        }
-        .podcast__line {
-          border-bottom: $border;
-          margin: 1em auto;
-        }
+      }
+      .podcast-episodes__container {
+        width: inherit;
+        min-width: 20em;
       }
     }
   }
@@ -157,6 +180,7 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     border-radius: $borderRadius;
     box-sizing: border-box;
     min-width: 14em;
+    margin: 0.5em;
   }
   .round-image {
     border-radius: $borderRadius * 24;

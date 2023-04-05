@@ -1,6 +1,6 @@
-import Img from "./Img"
+import Img from "./Img";
 
-const DetailsCard = (props: { item: PodcastProps }) => {
+const PodcastDetailsCard = (props: { item: PodcastProps }) => {
   const { item } = props;
 
   return (
@@ -11,27 +11,21 @@ const DetailsCard = (props: { item: PodcastProps }) => {
         )}
         <div className="podcast__line"></div>
         {item["im:name"] && (
-          <h3 className="podcast__title">
-            {item["im:name"].label}
-          </h3>
+          <h3 className="podcast__title">{item["im:name"].label}</h3>
         )}
         {item["im:artist"] && (
-          <span className="podcast__author">
-            by {item["im:artist"].label}
-          </span>
+          <span className="podcast__author">by {item["im:artist"].label}</span>
         )}
         <div className="podcast__line"></div>
         {item.summary && (
           <div className="podcast__description">
             <h4>Description:</h4>
-            <p>
-              {item.summary.label}
-            </p>
+            <p>{item.summary.label}</p>
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DetailsCard
+export default PodcastDetailsCard;
