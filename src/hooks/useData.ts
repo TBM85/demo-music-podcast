@@ -3,30 +3,30 @@ import {
   fetchPodcastEpisodesListData,
   fetchPodcastListData,
 } from "../utils/api";
+import { useParams } from "react-router-dom";
 
 const useData = () => {
+  const { podcastId } = useParams();
   const [podcastList, setPodcastList] = useState<PodcastProps[]>([]);
   const [selectedPodcast, setSelectedPodcast] = useState<PodcastProps>();
   const [selectedPodcastEpisodes, setSelectedPodcastEpisodes] =
     useState<EpisodeProps[]>();
 
   // make an API request to get the list of podcasts
-  const getPodcastListFromAPI = async () => {
+  const getPodcastListFromAPI = useCallback(async () => {
     const podcastListData = await fetchPodcastListData();
     setPodcastList(podcastListData);
-  };
+  }, []);
 
   // make an API request to get the list of episodes for each podcast
-  const getPodcastEpisodesListFromAPI = useCallback(async () => {
-    if (selectedPodcast) {
-      const podcastId = Number(selectedPodcast.id.attributes["im:id"]);
-      const podcastEpisodesListData = await fetchPodcastEpisodesListData(
-        podcastId
+  const getPodcastEpisodesFromAPI = useCallback(async () => {
+    if (podcastId) {
+      const podcastEpisodesData = await fetchPodcastEpisodesListData(
+        Number(podcastId)
       );
-
-      setSelectedPodcastEpisodes(podcastEpisodesListData);
+      setSelectedPodcastEpisodes(podcastEpisodesData);
     }
-  }, [selectedPodcast]);
+  }, [podcastId]);
 
   // make a request to localStorage to get the list of podcasts
   const getPodcastListFromLocalStorage = () => {
@@ -36,52 +36,85 @@ const useData = () => {
     }
   };
 
-  // make a request to localStorage to get the time of the last API update request
-  const getLastUpdatedDateFromLocalStorage = () => {
-    const dataLastUpdatedPodcastDate = localStorage.getItem(
-      "lastUpdatedPodcastDate"
-    );
-    if (dataLastUpdatedPodcastDate) {
-      return Number(JSON.parse(dataLastUpdatedPodcastDate));
+  // make a request to localStorage to get the list of episodes
+  const getPodcastEpisodesFromLocalStorage = () => {
+    const dataPodcastEpisodesArr = localStorage.getItem("episodesArr");
+    if (dataPodcastEpisodesArr) {
+      setSelectedPodcastEpisodes(JSON.parse(dataPodcastEpisodesArr));
     }
   };
 
-  // make a request to localStorage to get the details of the selected podcast
-  const getSelectedPodcastFromLocalStorage = () => {
-    const podcast = localStorage.getItem("selectedPodcast");
-    if (podcast) {
-      setSelectedPodcast(JSON.parse(podcast));
+  // get the details of the selected podcast
+  const getSelectedPodcast = useCallback(() => {
+    if (podcastId) {
+      const podcastWithSelectedId = podcastList.find(
+        (podcast) => podcast.id.attributes["im:id"] === podcastId
+      );
+      setSelectedPodcast(podcastWithSelectedId);
+    }
+  }, [podcastId, podcastList]);
+
+  // make a request to localStorage to get the time of the last API update request
+  const getLastUpdatedDate = (name: string) => {
+    const dataLastUpdatedDate = localStorage.getItem(name);
+    if (dataLastUpdatedDate) {
+      return Number(JSON.parse(dataLastUpdatedDate));
     }
   };
+  const getLastUpdatedPodcastsDate = useCallback(
+    () => getLastUpdatedDate("lastUpdatedPodcastsDate"),
+    []
+  );
+  const getLastUpdatedEpisodesDate = useCallback(
+    () => getLastUpdatedDate("lastUpdatedEpisodesDate"),
+    []
+  );
 
   // returns "true" if the difference between the current time and the time of the last API update request
   // is greater than 24 hours; otherwise, it returns "false"
-  const isDiffMoreThanDay = useCallback(() => {
+  const isDiffMoreThanDay = useCallback((getLastUpdatedDate: Function) => {
     const currentTime = new Date().getTime();
     const twentyFourHours = 24 * 60 * 60 * 1000;
-    const diffTime =
-      currentTime - (getLastUpdatedDateFromLocalStorage() as number);
-
+    const diffTime = currentTime - (getLastUpdatedDate() as number);
     return diffTime >= twentyFourHours;
   }, []);
 
+  const isPodcastsDiffMoreThanDay = isDiffMoreThanDay(
+    getLastUpdatedPodcastsDate
+  );
+  const isEpisodesDiffMoreThanDay = isDiffMoreThanDay(
+    getLastUpdatedEpisodesDate
+  );
+
+  // request API data, if this is the first request or more than 24 hours have passed since the last request
+  // request data from localstorage, if 24 hours haven't passed since the last request
   useEffect(() => {
-    // request API data, if this is the first request or more than 24 hours have passed since the last request
-    // request data from localstorage, if 24 hours haven't passed since the last request
-    if (!getLastUpdatedDateFromLocalStorage() || isDiffMoreThanDay()) {
+    if (!getLastUpdatedPodcastsDate() || isPodcastsDiffMoreThanDay) {
       getPodcastListFromAPI();
     } else {
       getPodcastListFromLocalStorage();
     }
-  }, [isDiffMoreThanDay]);
+  }, [
+    getLastUpdatedPodcastsDate,
+    getPodcastListFromAPI,
+    isPodcastsDiffMoreThanDay,
+  ]);
 
   useEffect(() => {
-    getSelectedPodcastFromLocalStorage();
-  }, []);
+    if (!getLastUpdatedEpisodesDate() || isEpisodesDiffMoreThanDay) {
+      getPodcastEpisodesFromAPI();
+    } else {
+      getPodcastEpisodesFromLocalStorage();
+    }
+  }, [
+    getLastUpdatedEpisodesDate,
+    getPodcastEpisodesFromAPI,
+    isEpisodesDiffMoreThanDay,
+  ]);
 
   useEffect(() => {
-    getPodcastEpisodesListFromAPI();
-  }, [getPodcastEpisodesListFromAPI]);
+    getSelectedPodcast();
+  }, [getSelectedPodcast]);
 
   return {
     podcastList,

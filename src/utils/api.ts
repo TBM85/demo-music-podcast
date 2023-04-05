@@ -11,7 +11,7 @@ export const fetchPodcastListData = async () => {
 
     // save the time of the last API update request in localStorage
     localStorage.setItem(
-      "lastUpdatedPodcastDate",
+      "lastUpdatedPodcastsDate",
       JSON.stringify(new Date().getTime().toString())
     );
 
@@ -32,6 +32,18 @@ export const fetchPodcastEpisodesListData = async (id: number) => {
   try {
     const response = await axios.get(
       `${BASE_URL}lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20/json`
+    );
+
+    // save the time of the last API update request in localStorage
+    localStorage.setItem(
+      "lastUpdatedEpisodesDate",
+      JSON.stringify(new Date().getTime().toString())
+    );
+
+    // stores podcast episodes list from the iTunes API in localStorage
+    localStorage.setItem(
+      "episodesArr",
+      JSON.stringify(response.data.results.slice(1))
     );
 
     return response.data.results.slice(1);
