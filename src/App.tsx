@@ -3,6 +3,7 @@ import "./App.scss";
 import PodcastMain from "./pages/PodcastMain";
 import PodcastDetail from "./pages/PodcastDetails";
 import AppStateProvider from "./contexts/appState";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PodcastMain />} />
           <Route path="/podcast/:podcastId" element={<PodcastDetail />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AppStateProvider>
     </div>
