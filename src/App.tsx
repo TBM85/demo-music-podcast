@@ -1,9 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import PodcastMain from "./pages/PodcastMain";
-import PodcastDetail from "./pages/PodcastDetails";
+import PodcastDetails from "./pages/PodcastDetails";
 import AppStateProvider from "./contexts/appState";
 import NotFound from "./pages/NotFound";
+import EpisodeDetails from "./pages/EpisodeDetails";
 
 function App() {
   return (
@@ -11,7 +12,11 @@ function App() {
       <AppStateProvider>
         <Routes>
           <Route path="/" element={<PodcastMain />} />
-          <Route path="/podcast/:podcastId" element={<PodcastDetail />} />
+          <Route path="/podcast/:podcastId" element={<PodcastDetails />} />
+          <Route
+            path="/podcast/:podcastId/episode/:episodeId"
+            element={<EpisodeDetails />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppStateProvider>

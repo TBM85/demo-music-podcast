@@ -184,6 +184,13 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
               &:nth-child(odd) {
                 background-color: $light-gray;
               }
+              .episode-item__link {
+                cursor: pointer;
+                color: $blue;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
             }
           }
         }
