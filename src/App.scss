@@ -1,6 +1,7 @@
 // COLORS
 $blue: #0038a9;
 $gray: #d6d6d6;
+$light-gray: #f2f2f2;
 $dark-gray: #58585b;
 $white: #fff;
 $black: #1d1d1f;
@@ -168,6 +169,23 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         min-width: 20em;
         .podcast-episodes__amount {
           text-align: left;
+        }
+        .podcast-episodes__list {
+          text-align: left;
+          th,
+          td {
+            padding: 0.5em;
+            width: 100%;
+            border-bottom: $border;
+          }
+          tbody {
+            tr {
+              height: 100%;
+              &:nth-child(odd) {
+                background-color: $light-gray;
+              }
+            }
+          }
         }
       }
     }
