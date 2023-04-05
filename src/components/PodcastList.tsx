@@ -7,7 +7,7 @@ const PodcastList = (props: { podcastList: PodcastProps[] }) => {
   const navigate = useNavigate();
   const { setSelectedPodcast } = useContext(AppStateContext);
 
-  const handlePodcastClick = (podcast: PodcastProps) => {
+  const handleClick = (podcast: PodcastProps) => {
     setSelectedPodcast(podcast);
     navigate(`/podcast/${podcast.id.attributes["im:id"]}`);
   };
@@ -19,7 +19,7 @@ const PodcastList = (props: { podcastList: PodcastProps[] }) => {
           <div
             className="card podcast"
             key={`data-item-${item.id.attributes["im:id"]}`}
-            onClick={() => handlePodcastClick(item)}
+            onClick={() => handleClick(item)}
           >
             {item["im:image"][2].label && (
               <Img data={item} className="round-image" />

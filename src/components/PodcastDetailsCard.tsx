@@ -1,10 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import Img from "./Img";
 
 const PodcastDetailsCard = (props: { item: PodcastProps }) => {
   const { item } = props;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(-1);
+  };
 
   return (
-    <div className="details__card">
+    <div className="details__card" onClick={handleClick}>
       <div className="card podcast">
         {item["im:image"][2].label && (
           <Img data={item} className="square-image" />

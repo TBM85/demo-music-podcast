@@ -10,7 +10,7 @@ const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
   let location = useLocation();
   const { setSelectedEpisode } = useContext(AppStateContext);
 
-  const handleEpisodeClick = (episode: EpisodeProps) => {
+  const handleClick = (episode: EpisodeProps) => {
     setSelectedEpisode(episode);
     navigate(`${location.pathname}/episode/${episode.trackId}`);
   };
@@ -30,7 +30,7 @@ const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
             <tr key={`episode-item-${episode.trackId}`}>
               <td
                 className="episode-item__link"
-                onClick={() => handleEpisodeClick(episode)}
+                onClick={() => handleClick(episode)}
               >
                 {episode.trackName}
               </td>
