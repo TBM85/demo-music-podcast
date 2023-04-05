@@ -19,7 +19,7 @@ const PodcastDetailsCard = (props: { item: PodcastProps }) => {
         <div className="podcast__line"></div>
         {item.summary && (
           <div className="podcast__description">
-            <h4>Description:</h4>
+            <strong>Description:</strong>
             <p>{item.summary.label}</p>
           </div>
         )}

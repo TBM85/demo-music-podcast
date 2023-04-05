@@ -4,23 +4,27 @@ import EpisodesAmountCard from "../components/EpisodesAmountCard";
 import EpisodesListCard from "../components/EpisodesListCard";
 
 const PodcastDetail = () => {
-  const { selectedPodcast } = useData();
+  const { selectedPodcast, selectedPodcastEpisodes } = useData();
 
   return (
     <div className="podcast-details-episodes">
-      <div className="podcast-details-episodes__container">
-        <div className="podcast-details__card">
-          {selectedPodcast && <PodcastDetailsCard item={selectedPodcast} />}
-        </div>
-        <div className="podcast-episodes__container">
-          <div className="podcast-episodes__amount">
-            <EpisodesAmountCard />
+      {selectedPodcast && selectedPodcastEpisodes ? (
+        <div className="podcast-details-episodes__container">
+          <div className="podcast-details__card">
+            <PodcastDetailsCard item={selectedPodcast} />
           </div>
-          <div className="podcast-episodes__list">
-            <EpisodesListCard />
+          <div className="podcast-episodes__container">
+            <div className="podcast-episodes__amount">
+              <EpisodesAmountCard item={selectedPodcastEpisodes} />
+            </div>
+            <div className="podcast-episodes__list">
+              <EpisodesListCard />
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <p>Loading data...</p>
+      )}
     </div>
   );
 };

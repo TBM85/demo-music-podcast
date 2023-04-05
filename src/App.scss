@@ -129,12 +129,7 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
       border: $border;
       object-fit: cover;
     }
-    .podcast__author,
     .podcast__description {
-      h4 {
-        font-weight: bold;
-        margin: 0.25em 0;
-      }
       p {
         margin: 0.5em 0 0;
       }
@@ -171,6 +166,9 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
       .podcast-episodes__container {
         width: inherit;
         min-width: 20em;
+        .podcast-episodes__amount {
+          text-align: left;
+        }
       }
     }
   }
