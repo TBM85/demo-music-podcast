@@ -1,14 +1,14 @@
 import { createContext, useState } from "react";
 
-const contextDefaultValues: AppStateConfig = {
+const contextDefaultValues: AppStateConfigProps = {
   selectedPodcast: undefined,
   setSelectedPodcast: () => {},
 };
 
 export const AppStateContext =
-  createContext<AppStateConfig>(contextDefaultValues);
+  createContext<AppStateConfigProps>(contextDefaultValues);
 
-const AppStateProvider = ({ children }: AppStateProviderProps) => {
+const AppStateProvider = ({ children }: Props) => {
   const [selectedPodcast, updateSelectedPodcast] = useState<PodcastProps>();
 
   const setSelectedPodcast = (podcast: PodcastProps | undefined) => {

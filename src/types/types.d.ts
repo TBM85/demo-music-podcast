@@ -1,8 +1,8 @@
-interface AppStateProviderProps {
+interface Props {
   children: React.ReactNode;
 }
 
-interface AppStateConfig {
+interface AppStateConfigProps {
   selectedPodcast: PodcastProps | undefined;
   setSelectedPodcast: (podcast: PodcastProps | undefined) => void;
 }
