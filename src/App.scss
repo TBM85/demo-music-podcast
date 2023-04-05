@@ -1,3 +1,6 @@
+// FONT
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap");
+
 // COLORS
 $blue: #0038a9;
 $gray: #d6d6d6;
@@ -64,6 +67,13 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
 .App {
   text-align: center;
   color: $black;
+  font-family: "Roboto", sans-serif;
+  h2 {
+    font-size: 1.1em;
+  }
+  h3 {
+    font-size: 1.4em;
+  }
   .header {
     @include display(center, center);
     border-bottom: $border;
@@ -117,6 +127,9 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         position: static;
         margin-top: -35%;
       }
+      .podcast__title {
+        text-transform: uppercase;
+      }
       .podcast__author {
         span {
           @include lightText(normal);
@@ -141,6 +154,9 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     .podcast-details-episodes__container {
       @include widthContainer;
       margin: 2em 0.5em;
+      main {
+        width: 100%;
+      }
       .podcast-details__card {
         .details__card {
           cursor: pointer;
@@ -196,6 +212,17 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
               }
             }
           }
+        }
+      }
+      .podcast-details-episodes {
+        pre {
+          white-space: pre-line;
+          text-align: justify;
+          @include lightText(normal);
+          font-family: "Roboto", sans-serif;
+        }
+        audio {
+          margin-top: 0.5em;
         }
       }
     }

@@ -17,7 +17,7 @@ const PodcastDetailsCard = (props: { item: PodcastProps }) => {
         )}
         <div className="podcast__line"></div>
         {item["im:name"] && (
-          <h3 className="podcast__title">{item["im:name"].label}</h3>
+          <h2 className="podcast__title">{item["im:name"].label}</h2>
         )}
         {item["im:artist"] && (
           <span className="podcast__author">by {item["im:artist"].label}</span>

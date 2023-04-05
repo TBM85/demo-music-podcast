@@ -7,7 +7,7 @@ const EpisodeDetailsCard = () => {
     <div className="podcast-details-episodes card">
       {selectedEpisode && (
         <div className="">
-          <h2>{selectedEpisode.trackName}</h2>
+          <h3>{selectedEpisode.trackName}</h3>
           <pre>{selectedEpisode.description}</pre>
           <audio id={selectedEpisode.trackId.toString()} controls>
             <source src={selectedEpisode.episodeUrl} type="audio/mpeg" />
