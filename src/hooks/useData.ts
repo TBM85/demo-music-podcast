@@ -1,15 +1,31 @@
 import { useCallback, useEffect, useState } from "react";
-import { fetchPodcastListData } from "../utils/api";
+import {
+  fetchPodcastEpisodesListData,
+  fetchPodcastListData,
+} from "../utils/api";
 
 const useData = () => {
   const [podcastList, setPodcastList] = useState<PodcastProps[]>([]);
   const [selectedPodcast, setSelectedPodcast] = useState<PodcastProps>();
+  const [selectedPodcastEpisodes, setSelectedPodcastEpisodes] = useState<any>();
 
-  // make a request to the API to get the list of podcasts
+  // make an API request to get the list of podcasts
   const getPodcastListFromAPI = async () => {
     const podcastListData = await fetchPodcastListData();
     setPodcastList(podcastListData);
   };
+
+  // make an API request to get the list of episodes for each podcast
+  const getPodcastEpisodesListFromAPI = useCallback(async () => {
+    if (selectedPodcast) {
+      const podcastId = Number(selectedPodcast.id.attributes["im:id"]);
+      const podcastEpisodesListData = await fetchPodcastEpisodesListData(
+        podcastId
+      );
+
+      setSelectedPodcastEpisodes(podcastEpisodesListData);
+    }
+  }, [selectedPodcast]);
 
   // make a request to localStorage to get the list of podcasts
   const getPodcastListFromLocalStorage = () => {
@@ -21,7 +37,9 @@ const useData = () => {
 
   // make a request to localStorage to get the time of the last API update request
   const getLastUpdatedDateFromLocalStorage = () => {
-    const dataLastUpdatedPodcastDate = localStorage.getItem("lastUpdatedPodcastDate");
+    const dataLastUpdatedPodcastDate = localStorage.getItem(
+      "lastUpdatedPodcastDate"
+    );
     if (dataLastUpdatedPodcastDate) {
       return Number(JSON.parse(dataLastUpdatedPodcastDate));
     }
@@ -35,13 +53,14 @@ const useData = () => {
     }
   };
 
-  // returns "true" if the difference between the current time and the time of the last API update request 
+  // returns "true" if the difference between the current time and the time of the last API update request
   // is greater than 24 hours; otherwise, it returns "false"
   const isDiffMoreThanDay = useCallback(() => {
     const currentTime = new Date().getTime();
     const twentyFourHours = 24 * 60 * 60 * 1000;
-    const diffTime = currentTime - (getLastUpdatedDateFromLocalStorage() as number);
-  
+    const diffTime =
+      currentTime - (getLastUpdatedDateFromLocalStorage() as number);
+
     return diffTime >= twentyFourHours;
   }, []);
 
@@ -59,10 +78,15 @@ const useData = () => {
     getSelectedPodcastFromLocalStorage();
   }, []);
 
+  useEffect(() => {
+    getPodcastEpisodesListFromAPI();
+  }, [getPodcastEpisodesListFromAPI]);
+
   return {
     podcastList,
-    selectedPodcast
-  }
+    selectedPodcast,
+    selectedPodcastEpisodes,
+  };
 };
 
 export default useData;

@@ -6,11 +6,9 @@ const PodcastDetail = () => {
 
   return (
     <div className="podcast__details">
-      {selectedPodcast && (
-        <DetailsCard item={selectedPodcast} />
-      )}
+      {selectedPodcast && <DetailsCard item={selectedPodcast} />}
     </div>
-  )
-}
+  );
+};
 
 export default PodcastDetail;
