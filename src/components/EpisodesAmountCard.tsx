@@ -4,7 +4,7 @@ const EpisodesAmountCard = (props: { item: EpisodeProps[] }) => {
   return (
     <div className="card">
       <strong>Episodes: </strong>
-      <span>{item.length}</span>
+      <span>{item && item.length}</span>
     </div>
   );
 };
