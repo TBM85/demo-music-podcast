@@ -7,7 +7,8 @@ import {
 const useData = () => {
   const [podcastList, setPodcastList] = useState<PodcastProps[]>([]);
   const [selectedPodcast, setSelectedPodcast] = useState<PodcastProps>();
-  const [selectedPodcastEpisodes, setSelectedPodcastEpisodes] = useState<any>();
+  const [selectedPodcastEpisodes, setSelectedPodcastEpisodes] =
+    useState<EpisodeProps[]>();
 
   // make an API request to get the list of podcasts
   const getPodcastListFromAPI = async () => {

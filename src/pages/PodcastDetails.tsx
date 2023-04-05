@@ -18,7 +18,7 @@ const PodcastDetail = () => {
               <EpisodesAmountCard item={selectedPodcastEpisodes} />
             </div>
             <div className="podcast-episodes__list">
-              <EpisodesListCard />
+              <EpisodesListCard item={selectedPodcastEpisodes} />
             </div>
           </div>
         </div>

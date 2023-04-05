@@ -1,4 +1,4 @@
-const EpisodesAmountCard = (props: { item: any }) => {
+const EpisodesAmountCard = (props: { item: EpisodeProps[] }) => {
   const { item } = props;
 
   return (
