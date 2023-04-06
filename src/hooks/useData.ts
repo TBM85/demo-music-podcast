@@ -13,6 +13,7 @@ const useData = () => {
   const [selectedEpisode, setSelectedEpisode] = useState<EpisodeProps>();
   const [loadingPodcasts, setLoadingPodcasts] = useState<boolean>(true);
   const [loadingEpisodes, setLoadingEpisodes] = useState<boolean>(true);
+  const [selectedEpisodesId, setSelectedEpisodesId] = useState<number>();
 
   // make an API request to get the list of podcasts
   const getPodcastListFromAPI = useCallback(async () => {
@@ -82,6 +83,13 @@ const useData = () => {
     []
   );
 
+  // get id of selected podcast episodes
+  const getSelectedEpisodesId = useCallback(() => {
+    if (podcastEpisodes) {
+      setSelectedEpisodesId(podcastEpisodes[0].collectionId);
+    }
+  }, [podcastEpisodes]);
+
   // returns "true" if the difference between the current time and the time of the last API update request
   // is greater than 24 hours; otherwise, it returns "false"
   const isDiffMoreThanDay = useCallback((getLastUpdatedDate: Function) => {
@@ -113,7 +121,13 @@ const useData = () => {
   ]);
 
   useEffect(() => {
-    if (!getLastUpdatedEpisodesDate() || isEpisodesDiffMoreThanDay) {
+    if (
+      !getLastUpdatedEpisodesDate() ||
+      isEpisodesDiffMoreThanDay ||
+      (podcastId &&
+        selectedEpisodesId &&
+        selectedEpisodesId !== Number(podcastId))
+    ) {
       getPodcastEpisodesFromAPI();
     } else {
       getPodcastEpisodesFromLocalStorage();
@@ -122,6 +136,8 @@ const useData = () => {
     getLastUpdatedEpisodesDate,
     getPodcastEpisodesFromAPI,
     isEpisodesDiffMoreThanDay,
+    selectedEpisodesId,
+    podcastId,
   ]);
 
   useEffect(() => {
@@ -131,6 +147,10 @@ const useData = () => {
   useEffect(() => {
     getSelectedEpisode();
   }, [getSelectedEpisode]);
+
+  useEffect(() => {
+    getSelectedEpisodesId();
+  }, [getSelectedEpisodesId]);
 
   useEffect(() => {
     setLoadingPodcasts(false);

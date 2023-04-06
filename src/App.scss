@@ -257,6 +257,12 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     min-width: 14em;
     margin: 0.5em;
   }
+  .round-image {
+    border-radius: $borderRadius * 24;
+  }
+  .square-image {
+    border-radius: $borderRadius;
+  }
   .spinner {
     border: 5px solid $white;
     border-top: 5px solid $blue;
@@ -266,7 +272,6 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     animation: spin 1s linear infinite;
     margin: 4em;
   }
-
   @keyframes spin {
     0% {
       transform: rotate(0deg);
@@ -274,11 +279,5 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     100% {
       transform: rotate(360deg);
     }
-  }
-  .round-image {
-    border-radius: $borderRadius * 24;
-  }
-  .square-image {
-    border-radius: $borderRadius;
   }
 }
