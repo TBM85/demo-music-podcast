@@ -153,6 +153,7 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     @include display(center, unset);
     .podcast-details-episodes__container {
       @include widthContainer;
+      @include display(center, unset);
       margin: 2em 0.5em;
       main {
         width: 100%;
@@ -217,7 +218,7 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
       .podcast-details-episodes {
         pre {
           white-space: pre-line;
-          text-align: justify;
+          text-align: left;
           @include lightText(normal);
           font-family: "Roboto", sans-serif;
         }
@@ -255,6 +256,24 @@ $boxShadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     box-sizing: border-box;
     min-width: 14em;
     margin: 0.5em;
+  }
+  .spinner {
+    border: 5px solid $white;
+    border-top: 5px solid $blue;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    animation: spin 1s linear infinite;
+    margin: 4em;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
   .round-image {
     border-radius: $borderRadius * 24;

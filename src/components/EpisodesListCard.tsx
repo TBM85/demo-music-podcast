@@ -35,8 +35,14 @@ const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
                 >
                   {episode.trackName}
                 </td>
-                <td>{dateFormat(episode.releaseDate)}</td>
-                <td>{timeFormat(episode.trackTimeMillis)}</td>
+                <td>
+                  {episode.releaseDate ? dateFormat(episode.releaseDate) : "-"}
+                </td>
+                <td>
+                  {episode.trackTimeMillis
+                    ? timeFormat(episode.trackTimeMillis)
+                    : "-"}
+                </td>
               </tr>
             ))}
         </tbody>

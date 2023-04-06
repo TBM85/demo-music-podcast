@@ -11,6 +11,8 @@ const useData = () => {
   const [selectedPodcast, setSelectedPodcast] = useState<PodcastProps>();
   const [podcastEpisodes, setPodcastEpisodes] = useState<EpisodeProps[]>();
   const [selectedEpisode, setSelectedEpisode] = useState<EpisodeProps>();
+  const [loadingPodcasts, setLoadingPodcasts] = useState<boolean>(true);
+  const [loadingEpisodes, setLoadingEpisodes] = useState<boolean>(true);
 
   // make an API request to get the list of podcasts
   const getPodcastListFromAPI = useCallback(async () => {
@@ -130,8 +132,18 @@ const useData = () => {
     getSelectedEpisode();
   }, [getSelectedEpisode]);
 
+  useEffect(() => {
+    setLoadingPodcasts(false);
+  }, [podcastList]);
+
+  useEffect(() => {
+    setLoadingEpisodes(false);
+  }, [podcastEpisodes]);
+
   return {
     podcastList,
+    loadingPodcasts,
+    loadingEpisodes,
     selectedPodcast,
     podcastEpisodes,
     selectedEpisode,
