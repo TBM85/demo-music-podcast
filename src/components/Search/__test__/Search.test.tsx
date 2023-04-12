@@ -6,12 +6,43 @@ const handleChangeMock = jest.fn(
 );
 
 const mockProps: SearchProps = {
-  results: [],
+  results: [
+    {
+      id: "1",
+      title: "Podcast 1",
+      srcImg: "https://podcast.com/image/thumb/Podcast1.png",
+      heightImg: "170",
+      author: "Podcast 1",
+      description: "Description of podcast 1",
+    },
+    {
+      id: "2",
+      title: "Podcast 2",
+      srcImg: "https://podcast.com/image/thumb/Podcast2.png",
+      heightImg: "170",
+      author: "Podcast 2",
+      description: "Description of podcast 2",
+    },
+    {
+      id: "3",
+      title: "Podcast 3",
+      srcImg: "https://podcast.com/image/thumb/Podcast3.png",
+      heightImg: "170",
+      author: "Podcast 3",
+      description: "Description of podcast 3",
+    },
+  ],
   searchText: "",
   handleChange: handleChangeMock,
 };
 
 describe("Search", () => {
+  it("should renders the correct number of filtered podcasts", () => {
+    render(<Search {...mockProps} />);
+    const badgeElement = screen.getByTestId("badge");
+    expect(badgeElement.textContent).toEqual("3");
+  });
+
   it("should calls the handleChange function when the input value changes", async () => {
     render(<Search {...mockProps} />);
     const inputElement = screen.getByPlaceholderText(
