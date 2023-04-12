@@ -1,6 +1,6 @@
 import useData from "../hooks/useData";
-import EpisodesAmountCard from "../components/EpisodesAmountCard";
-import EpisodesListCard from "../components/EpisodesListCard";
+import EpisodesAmountCard from "../components/EpisodesAmountCard/EpisodesAmountCard";
+import EpisodesListCard from "../components/EpisodesListCard/EpisodesListCard";
 import Layout from "../layouts/MainLayout";
 import DetailsLayout from "../layouts/DetailsLayout";
 

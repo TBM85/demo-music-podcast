@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppStateContext } from "../contexts/appState";
-import Img from "./Img";
-import Spinner from "./Spinner";
+import { AppStateContext } from "../../contexts/appState";
+import Img from "../PodcastImage/Img";
+import Spinner from "../Spinner/Spinner";
 
 const PodcastList = (props: {
   podcastList: PodcastProps[];

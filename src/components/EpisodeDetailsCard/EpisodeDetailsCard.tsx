@@ -1,4 +1,4 @@
-import useData from "../hooks/useData";
+import useData from "../../hooks/useData";
 
 const EpisodeDetailsCard = () => {
   const { selectedEpisode } = useData();

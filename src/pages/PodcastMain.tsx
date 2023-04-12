@@ -1,5 +1,5 @@
 import Search from "../components/Search/Search";
-import PodcastList from "../components/PodcastList";
+import PodcastList from "../components/PodcastList/PodcastList";
 import useSearch from "../hooks/useSearch";
 import useData from "../hooks/useData";
 import Layout from "../layouts/MainLayout";

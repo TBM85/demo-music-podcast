@@ -1,4 +1,4 @@
-import EpisodeDetailsCard from "../components/EpisodeDetailsCard";
+import EpisodeDetailsCard from "../components/EpisodeDetailsCard/EpisodeDetailsCard";
 import DetailsLayout from "../layouts/DetailsLayout";
 import Layout from "../layouts/MainLayout";
 

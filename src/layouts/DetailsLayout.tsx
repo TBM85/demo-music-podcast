@@ -1,5 +1,5 @@
-import PodcastDetailsCard from "../components/PodcastDetailsCard";
-import Spinner from "../components/Spinner";
+import PodcastDetailsCard from "../components/PodcastDetailsCard/PodcastDetailsCard";
+import Spinner from "../components/Spinner/Spinner";
 import useData from "../hooks/useData";
 
 const Layout = ({ children }: Props) => {

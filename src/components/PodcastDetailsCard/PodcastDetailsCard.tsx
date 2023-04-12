@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Img from "./Img";
+import Img from "../PodcastImage/Img";
 
 const PodcastDetailsCard = (props: { item: PodcastProps }) => {
   const { item } = props;

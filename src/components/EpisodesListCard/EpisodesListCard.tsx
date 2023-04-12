@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { dateFormat, timeFormat } from "../utils/utils";
+import { dateFormat, timeFormat } from "../../utils/utils";
 import { useContext } from "react";
-import { AppStateContext } from "../contexts/appState";
+import { AppStateContext } from "../../contexts/appState";
 
 const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
   const { item } = props;
