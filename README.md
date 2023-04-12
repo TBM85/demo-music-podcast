@@ -1,31 +1,101 @@
 # Music Podcast
 
+### Table of Contents
+- [Description](#description)
+- [Project structure](#project-structure)
+- [How to run this app in local](#how-to-run-this-app-in-local)
+- [How to build the app for production](#how-to-compile-and-build-the-app-for-production)
+- [How to run the tests](#how-to-run-the-tests)
+- [License](#license)
+
 ## Description
-An application that shows the updated list of the 100 most popular podcasts according to the list of Apple
+An application that shows the updated list of the 100 most popular podcasts according to the list of Apple.
 
 ### Podcasts main view
+In this view, you'll be able to filter the podcasts by the title and the names of their authors.
 ![Podcasts main view](public/main_view.png)
 
+When clicking on a podcast, you will navigate to the view with its details.
+
 ### Podcast details view
+In this view, a sidebar is displayed with some details about the podcast, and in the main section, the total number of episodes is shown along with a list of them.
 ![Podcast details view](public/podcast_details_view.png)
 
+When clicking on the title of an episode, you will navigate to the view with its details.
+
 ### Podcast episode details view
+In this view, the same sidebar with details about the podcast is displayed, and in the main section, the details of the selected episode are shown.
 ![Podcast episode details view](public/episode_details_view.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The sidebar always works as a link to the previous view, and the title of the app always works as a link to the main view.
 
-## How to run this app
+## Project structure
+```
+/
+├── public/
+│   ├── index.html
+│   ├── favicon.ico
+│   ├── robots.txt
+│   └── ...
+├── src/
+│   ├── components/
+│   │   ├── Search/
+│   │   │   ├── Search.tsx
+│   │   │   └── __test__
+│   │   │       └── Search.test.tsx
+│   │   ├── PodcastsList/
+│   │   │   └── PodcastsList.tsx
+│   │   ├── EpisodesListCard/
+│   │   │   └── ...
+│   │   ├── PodcastDetailsCard/
+│   │   │   └── ...
+│   │   ├── EpisodeDetailsCard/
+│   │   │   └── ...
+│   │   └── ...
+│   ├── contexts/
+│   │   └-- appState.tsx
+│   ├── hooks/
+│   │   ├── useData.ts
+│   │   └── useSearch.ts
+│   ├── layouts/
+│   │   ├── DetailsLayout.tsx
+│   │   └── MainLayout.tsx
+│   ├── pages/
+│   │   ├── EpisodeDetails.tsx
+│   │   ├── NotFound.tsx
+│   │   ├-- PodcastDetails.tsx
+│   │   └── PodcastMain.tsx
+│   ├── types/
+│   │   └── types.d.ts
+│   ├── utils/
+│   │   ├── api.ts
+│   │   └── utils.ts
+│   ├── App.scss
+│   ├── App.tsx
+│   ├── index.scss
+│   ├── index.tsx
+│   └── ...
+├── package.json
+├── tsconfig.json
+└── ...
+```
+
+## Installation
 * Clone: `git clone https://github.com/TBM85/demo-music-podcast`
 * Enter in the directory: `cd demo-music-podcast`
 * Install dependencies: `npm install`
-* Runs the app in the development mode: `npm start`\
-  Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-* Or builds the app for production to the `build` folder: `npm run build`\
-  It correctly bundles React in production mode and optimizes the build for the best performance.
-  The build is minified and the filenames include the hashes.
-  The app is ready to be deployed!
 
-## Learn More
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## How to run this app in local
+* Execute the following command in your terminal: `npm start`\
+  Then, open [http://localhost:3000](http://localhost:3000) in your browser to view the running application.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## How to compile and build the app for production
+* Execute the following command in your terminal: `npm run build`\
+  This command will generate an optimized version of the application in the `build` folder. The application is ready to be deployed.
+
+## How to run the tests
+* Execute the following command in your terminal: `npm test`\
+  This command will run all tests in the application and provide you with information on the results.
+
+## License
+Copyright (c) 2023 Tania Ballester. This project is using [MIT License](LICENSE.md)
