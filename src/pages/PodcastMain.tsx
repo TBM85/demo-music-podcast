@@ -1,4 +1,4 @@
-import Search from "../components/Search";
+import Search from "../components/Search/Search";
 import PodcastList from "../components/PodcastList";
 import useSearch from "../hooks/useSearch";
 import useData from "../hooks/useData";
