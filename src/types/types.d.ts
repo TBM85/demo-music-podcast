@@ -21,6 +21,15 @@ interface SearchProps {
 }
 
 interface PodcastProps {
+  id: string;
+  title: string;
+  srcImg: string;
+  heightImg: string;
+  author: string;
+  description: string;
+}
+
+interface PodcastOriginProps {
   category: {
     attributes: {
       "im:id": string;

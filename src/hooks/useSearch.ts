@@ -15,10 +15,10 @@ const useSearch = () => {
     if (podcastList) {
       const filteredResults = podcastList.filter(
         (podcast) =>
-          podcast["im:name"].label
+          podcast.title
             .toLocaleLowerCase()
             .includes(searchText.toLocaleLowerCase()) ||
-          podcast["im:artist"].label
+          podcast.author
             .toLocaleLowerCase()
             .includes(searchText.toLocaleLowerCase())
       );

@@ -12,21 +12,17 @@ const PodcastDetailsCard = (props: { item: PodcastProps }) => {
   return (
     <div className="details__card" onClick={handleClick}>
       <div className="card podcast">
-        {item["im:image"][2].label && (
-          <Img data={item} className="square-image" />
+        {item.srcImg && <Img data={item} className="square-image" />}
+        <div className="podcast__line"></div>
+        {item.title && <h2 className="podcast__title">{item.title}</h2>}
+        {item.author && (
+          <span className="podcast__author">by {item.author}</span>
         )}
         <div className="podcast__line"></div>
-        {item["im:name"] && (
-          <h2 className="podcast__title">{item["im:name"].label}</h2>
-        )}
-        {item["im:artist"] && (
-          <span className="podcast__author">by {item["im:artist"].label}</span>
-        )}
-        <div className="podcast__line"></div>
-        {item.summary && (
+        {item.description && (
           <div className="podcast__description">
             <strong>Description:</strong>
-            <p>{item.summary.label}</p>
+            <p>{item.description}</p>
           </div>
         )}
       </div>

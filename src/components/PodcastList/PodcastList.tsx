@@ -14,7 +14,7 @@ const PodcastList = (props: {
 
   const handleClick = (podcast: PodcastProps) => {
     setSelectedPodcast(podcast);
-    navigate(`/podcast/${podcast.id.attributes["im:id"]}`);
+    navigate(`/podcast/${podcast.id}`);
   };
 
   return (
@@ -24,19 +24,15 @@ const PodcastList = (props: {
           podcastList.map((item) => (
             <div
               className="card podcast"
-              key={`data-item-${item.id.attributes["im:id"]}`}
+              key={`data-item-${item.id}`}
               onClick={() => handleClick(item)}
             >
-              {item["im:image"][2].label && (
-                <Img data={item} className="round-image" />
-              )}
-              {item["im:name"] && (
-                <h2 className="podcast__title">{item["im:name"].label}</h2>
-              )}
-              {item["im:artist"] && (
+              {item.srcImg && <Img data={item} className="round-image" />}
+              {item.title && <h2 className="podcast__title">{item.title}</h2>}
+              {item.author && (
                 <div className="podcast__author">
                   <strong>Author: </strong>
-                  <span>{item["im:artist"].label}</span>
+                  <span>{item.author}</span>
                 </div>
               )}
             </div>

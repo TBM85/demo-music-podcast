@@ -51,7 +51,7 @@ const useData = () => {
   const getSelectedPodcast = useCallback(() => {
     if (podcastId) {
       const podcastWithSelectedId = podcastList.find(
-        (podcast) => podcast.id.attributes["im:id"] === podcastId
+        (podcast) => podcast.id === podcastId
       );
       setSelectedPodcast(podcastWithSelectedId);
     }

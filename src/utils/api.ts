@@ -9,6 +9,26 @@ export const fetchPodcastListData = async () => {
       `${BASE_URL}us/rss/toppodcasts/limit=100/genre=1310/json`
     );
 
+    const podcasts = response.data.feed.entry.map(
+      (podcast: PodcastOriginProps) => {
+        const podcastId = podcast.id.attributes["im:id"];
+        const podcastTitle = podcast["im:name"].label;
+        const podcastSrcImg = podcast["im:image"][2].label;
+        const podcastHeightImg = podcast["im:image"][2].attributes.height;
+        const podcastAuthor = podcast["im:artist"].label;
+        const podcastDescription = podcast.summary.label;
+
+        return {
+          id: podcastId,
+          title: podcastTitle,
+          srcImg: podcastSrcImg,
+          heightImg: podcastHeightImg,
+          author: podcastAuthor,
+          description: podcastDescription,
+        };
+      }
+    );
+
     // save the time of the last API update request in localStorage
     localStorage.setItem(
       "lastUpdatedPodcastsDate",
@@ -16,12 +36,9 @@ export const fetchPodcastListData = async () => {
     );
 
     // stores the 100 most popular podcasts from the iTunes API in localStorage
-    localStorage.setItem(
-      "podcastArr",
-      JSON.stringify(response.data.feed.entry)
-    );
+    localStorage.setItem("podcastArr", JSON.stringify(podcasts));
 
-    return response.data.feed.entry;
+    return podcasts;
   } catch (error) {
     console.error(error);
   }
