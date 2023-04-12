@@ -61,7 +61,7 @@ const useData = () => {
   const getSelectedEpisode = useCallback(() => {
     if (episodeId && podcastEpisodes) {
       const episodeWithSelectedId = podcastEpisodes.find(
-        (episode) => episode.trackId === Number(episodeId)
+        (episode) => episode.id === Number(episodeId)
       );
       setSelectedEpisode(episodeWithSelectedId);
     }

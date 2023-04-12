@@ -51,6 +51,28 @@ export const fetchPodcastEpisodesListData = async (id: number) => {
       `${BASE_URL}lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20/json`
     );
 
+    const episodes = response.data.results
+      .slice(1)
+      .map((episode: EpisodeOriginProps) => {
+        const episodeId = episode.trackId;
+        const collectionId = episode.collectionId;
+        const episodeTitle = episode.trackName;
+        const episodeDescription = episode.description;
+        const episodeUrl = episode.episodeUrl;
+        const episodeReleaseDate = episode.releaseDate;
+        const episodeTimeMillis = episode.trackTimeMillis;
+
+        return {
+          id: episodeId,
+          collectionId: collectionId,
+          title: episodeTitle,
+          url: episodeUrl,
+          description: episodeDescription,
+          releaseDate: episodeReleaseDate,
+          durationTime: episodeTimeMillis,
+        };
+      });
+
     // save the time of the last API update request in localStorage
     localStorage.setItem(
       "lastUpdatedEpisodesDate",
@@ -58,12 +80,9 @@ export const fetchPodcastEpisodesListData = async (id: number) => {
     );
 
     // stores podcast episodes list from the iTunes API in localStorage
-    localStorage.setItem(
-      "episodesArr",
-      JSON.stringify(response.data.results.slice(1))
-    );
+    localStorage.setItem("episodesArr", JSON.stringify(episodes));
 
-    return response.data.results.slice(1);
+    return episodes;
   } catch (error) {
     console.error(error);
   }

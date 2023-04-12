@@ -97,6 +97,16 @@ interface PodcastOriginProps {
 }
 
 interface EpisodeProps {
+  id: number;
+  collectionId: number;
+  title: string;
+  url: string;
+  description: string;
+  releaseDate: string;
+  durationTime: number;
+}
+
+interface EpisodeOriginProps {
   artistIds: number[];
   artistViewUrl: string;
   artworkUrl60: string;

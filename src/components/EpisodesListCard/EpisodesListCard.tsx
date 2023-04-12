@@ -12,7 +12,7 @@ const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
 
   const handleClick = (episode: EpisodeProps) => {
     setSelectedEpisode(episode);
-    navigate(`${location.pathname}/episode/${episode.trackId}`);
+    navigate(`${location.pathname}/episode/${episode.id}`);
   };
 
   return (
@@ -28,19 +28,19 @@ const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
         <tbody>
           {item &&
             item.map((episode: EpisodeProps) => (
-              <tr key={`episode-item-${episode.trackId}`}>
+              <tr key={`episode-item-${episode.id}`}>
                 <td
                   className="episode-item__link"
                   onClick={() => handleClick(episode)}
                 >
-                  {episode.trackName}
+                  {episode.title}
                 </td>
                 <td>
                   {episode.releaseDate ? dateFormat(episode.releaseDate) : "-"}
                 </td>
                 <td>
-                  {episode.trackTimeMillis
-                    ? timeFormat(episode.trackTimeMillis)
+                  {episode.durationTime
+                    ? timeFormat(episode.durationTime)
                     : "-"}
                 </td>
               </tr>
