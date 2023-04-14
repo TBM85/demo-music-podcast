@@ -101,8 +101,8 @@ interface PodcastOriginProps {
 }
 
 interface EpisodeProps {
-  id: number;
-  collectionId: number;
+  id: string;
+  collectionId: string;
   title: string;
   url: string;
   description: string;

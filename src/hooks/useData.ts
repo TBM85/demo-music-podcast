@@ -13,7 +13,7 @@ const useData = () => {
   const [selectedEpisode, setSelectedEpisode] = useState<EpisodeProps>();
   const [loadingPodcasts, setLoadingPodcasts] = useState<boolean>(true);
   const [loadingEpisodes, setLoadingEpisodes] = useState<boolean>(true);
-  const [selectedEpisodesId, setSelectedEpisodesId] = useState<number>();
+  const [selectedEpisodesId, setSelectedEpisodesId] = useState<string>();
 
   // make an API request to get the list of podcasts
   const getPodcastListFromAPI = useCallback(async () => {
@@ -61,7 +61,7 @@ const useData = () => {
   const getSelectedEpisode = useCallback(() => {
     if (episodeId && podcastEpisodes) {
       const episodeWithSelectedId = podcastEpisodes.find(
-        (episode) => episode.id === Number(episodeId)
+        (episode) => episode.id === episodeId
       );
       setSelectedEpisode(episodeWithSelectedId);
     }
@@ -126,7 +126,7 @@ const useData = () => {
       isEpisodesDiffMoreThanDay ||
       (podcastId &&
         selectedEpisodesId &&
-        selectedEpisodesId !== Number(podcastId))
+        selectedEpisodesId !== podcastId)
     ) {
       getPodcastEpisodesFromAPI();
     } else {

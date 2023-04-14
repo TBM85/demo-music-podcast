@@ -1,17 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { dateFormat, timeFormat } from "../../utils/utils";
-import { useContext } from "react";
-import { AppStateContext } from "../../contexts/appState";
+import { useDispatch } from "react-redux";
+import { setSelectedEpisode } from "../../store/features/episodesSlice";
 
 const EpisodesListCard = (props: { item: EpisodeProps[] }) => {
   const { item } = props;
 
   const navigate = useNavigate();
   let location = useLocation();
-  const { setSelectedEpisode } = useContext(AppStateContext);
+  const dispatch = useDispatch();
 
   const handleClick = (episode: EpisodeProps) => {
-    setSelectedEpisode(episode);
+    dispatch(setSelectedEpisode(episode));
     navigate(`${location.pathname}/episode/${episode.id}`);
   };
 

@@ -54,8 +54,8 @@ export const fetchPodcastEpisodesListData = async (id: number) => {
     const episodes = response.data.results
       .slice(1)
       .map((episode: EpisodeOriginProps) => {
-        const episodeId = episode.trackId;
-        const collectionId = episode.collectionId;
+        const episodeId = episode.trackId.toString();
+        const collectionId = episode.collectionId.toString();
         const episodeTitle = episode.trackName;
         const episodeDescription = episode.description;
         const episodeUrl = episode.episodeUrl;
