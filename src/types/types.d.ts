@@ -21,6 +21,8 @@ interface SearchProps {
 }
 
 interface PodcastsState {
+  podcastList: PodcastProps[],
+  loadingPodcasts: boolean,
   selectedPodcast: PodcastProps
 }
 

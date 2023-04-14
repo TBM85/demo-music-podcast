@@ -20,7 +20,7 @@ const PodcastList = (props: {
   return (
     <div className="podcasts">
       {!loading ? (
-        podcastList.length > 0 ? (
+        podcastList && podcastList.length > 0 ? (
           podcastList.map((item) => (
             <div
               className="card podcast"

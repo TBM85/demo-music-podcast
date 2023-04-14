@@ -1,25 +1,31 @@
 import { useCallback, useEffect, useState } from "react";
 import {
   fetchPodcastEpisodesListData,
-  fetchPodcastListData,
 } from "../utils/api";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getPodcasts } from "../store/features/podcastsSlice";
+import { podcastsArr } from '../store/features/podcastsSlice';
+import { isPodcastsLoading } from '../store/features/podcastsSlice';
+import { AppDispatch } from "../store/store";
 
 const useData = () => {
+  const podcastListArr = useSelector(podcastsArr);
+  const loadingPodcasts = useSelector(isPodcastsLoading);
+  const dispatch: AppDispatch = useDispatch();
   const { podcastId, episodeId } = useParams();
-  const [podcastList, setPodcastList] = useState<PodcastProps[]>([]);
+  const [podcastList, setPodcastList] = useState<PodcastProps[]>(podcastListArr);
   const [selectedPodcast, setSelectedPodcast] = useState<PodcastProps>();
   const [podcastEpisodes, setPodcastEpisodes] = useState<EpisodeProps[]>();
   const [selectedEpisode, setSelectedEpisode] = useState<EpisodeProps>();
-  const [loadingPodcasts, setLoadingPodcasts] = useState<boolean>(true);
   const [loadingEpisodes, setLoadingEpisodes] = useState<boolean>(true);
   const [selectedEpisodesId, setSelectedEpisodesId] = useState<string>();
 
   // make an API request to get the list of podcasts
   const getPodcastListFromAPI = useCallback(async () => {
-    const podcastListData = await fetchPodcastListData();
-    setPodcastList(podcastListData);
-  }, []);
+    dispatch(getPodcasts());
+    setPodcastList(podcastListArr);
+  }, [dispatch, podcastListArr]);
 
   // make an API request to get the list of episodes for each podcast
   const getPodcastEpisodesFromAPI = useCallback(async () => {
@@ -151,10 +157,6 @@ const useData = () => {
   useEffect(() => {
     getSelectedEpisodesId();
   }, [getSelectedEpisodesId]);
-
-  useEffect(() => {
-    setLoadingPodcasts(false);
-  }, [podcastList]);
 
   useEffect(() => {
     setLoadingEpisodes(false);

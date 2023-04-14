@@ -14,7 +14,7 @@ const useSearch = () => {
   useEffect(() => {
     if (podcastList) {
       const filteredResults = podcastList.filter(
-        (podcast) =>
+        (podcast: PodcastProps) =>
           podcast.title
             .toLocaleLowerCase()
             .includes(searchText.toLocaleLowerCase()) ||
