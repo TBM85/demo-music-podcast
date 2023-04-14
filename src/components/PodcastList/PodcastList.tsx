@@ -1,8 +1,8 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppStateContext } from "../../contexts/appState";
 import Img from "../PodcastImage/Img";
 import Spinner from "../Spinner/Spinner";
+import { useDispatch } from "react-redux";
+import { setSelectedPodcast } from "../../store/features/podcastsSlice";
 
 const PodcastList = (props: {
   podcastList: PodcastProps[];
@@ -10,10 +10,10 @@ const PodcastList = (props: {
 }) => {
   const { podcastList, loading } = props;
   const navigate = useNavigate();
-  const { setSelectedPodcast } = useContext(AppStateContext);
+  const dispatch = useDispatch();
 
   const handleClick = (podcast: PodcastProps) => {
-    setSelectedPodcast(podcast);
+    dispatch(setSelectedPodcast(podcast));
     navigate(`/podcast/${podcast.id}`);
   };
 

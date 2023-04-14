@@ -20,6 +20,10 @@ interface SearchProps {
   handleChange: Function;
 }
 
+interface PodcastsState {
+  selectedPodcast: PodcastProps
+}
+
 interface PodcastProps {
   id: string;
   title: string;
