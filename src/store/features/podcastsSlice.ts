@@ -1,15 +1,13 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL = "https://itunes.apple.com/";
-
 // should return the 100 most popular podcasts from the iTunes API
 export const getPodcasts = createAsyncThunk<PodcastProps[]>(
   "getPodcasts",
   async () => {
     try {
       const response = await axios.get(
-        `${BASE_URL}us/rss/toppodcasts/limit=100/genre=1310/json`
+        `${process.env.REACT_APP_API_URL}us/rss/toppodcasts/limit=100/genre=1310/json`
       );
 
       const podcasts = response.data.feed.entry.map(
@@ -76,25 +74,30 @@ export const podcastsSlice = createSlice({
       state.selectedPodcast.description = description;
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(getPodcasts.pending, (state) => {
         state.loadingPodcasts = true;
       })
-      .addCase(getPodcasts.fulfilled, (state, action: PayloadAction<PodcastProps[]>) => {
-        state.loadingPodcasts = false;
-        state.podcastList = action.payload;
-      })
+      .addCase(
+        getPodcasts.fulfilled,
+        (state, action: PayloadAction<PodcastProps[]>) => {
+          state.loadingPodcasts = false;
+          state.podcastList = action.payload;
+        }
+      )
       .addCase(getPodcasts.rejected, (state) => {
         state.loadingPodcasts = false;
       });
-  }
+  },
 });
 
 // Action creators are generated for each case reducer function
-export const { setSelectedPodcast  } = podcastsSlice.actions;
+export const { setSelectedPodcast } = podcastsSlice.actions;
 
-export const podcastsArr = (state: { podcasts: PodcastsState }) => state.podcasts.podcastList;
-export const isPodcastsLoading = (state: { podcasts: PodcastsState }) => state.podcasts.loadingPodcasts;
+export const podcastsArr = (state: { podcasts: PodcastsState }) =>
+  state.podcasts.podcastList;
+export const isPodcastsLoading = (state: { podcasts: PodcastsState }) =>
+  state.podcasts.loadingPodcasts;
 
 export default podcastsSlice.reducer;

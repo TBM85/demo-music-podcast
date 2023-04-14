@@ -1,12 +1,10 @@
 import axios from "axios";
 
-const BASE_URL = "https://itunes.apple.com/";
-
 // should return the episodes of each podcast from the iTunes API
 export const fetchPodcastEpisodesListData = async (id: number) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20/json`
+      `${process.env.REACT_APP_API_URL}lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20/json`
     );
 
     const episodes = response.data.results
