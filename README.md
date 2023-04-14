@@ -6,6 +6,7 @@
 - [How to run this app in local](#how-to-run-this-app-in-local)
 - [How to build the app for production](#how-to-compile-and-build-the-app-for-production)
 - [How to run the tests](#how-to-run-the-tests)
+- [Technologies used](#technologies-used)
 - [License](#license)
 
 ## Description
@@ -52,8 +53,6 @@ The sidebar always works as a link to the previous view, and the title of the ap
 │   │   ├── EpisodeDetailsCard/
 │   │   │   └── ...
 │   │   └── ...
-│   ├── contexts/
-│   │   └-- appState.tsx
 │   ├── hooks/
 │   │   ├── useData.ts
 │   │   └── useSearch.ts
@@ -70,6 +69,11 @@ The sidebar always works as a link to the previous view, and the title of the ap
 │   ├── utils/
 │   │   ├── api.ts
 │   │   └── utils.ts
+│   ├── store/
+│   │   ├── features/
+│   │   │   ├── podcastsSlice.ts
+│   │   │   └── episodesSlice.ts
+│   │   └── store.ts
 │   ├── App.scss
 │   ├── App.tsx
 │   ├── index.scss
@@ -96,6 +100,15 @@ The sidebar always works as a link to the previous view, and the title of the ap
 ## How to run the tests
 * Execute the following command in your terminal: `npm test`\
   This command will run all tests in the application and provide you with information on the results.
+
+## Technologies used
+* [React](https://beta.es.reactjs.org/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Redux Toolkit](https://redux-toolkit.js.org/)
+* [React Router DOM](https://reactrouter.com/en/main)
+* [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+* [Axios](https://axios-http.com/es/docs/intro)
+* [SASS](https://sass-lang.com/)
 
 ## License
 Copyright (c) 2023 Tania Ballester. This project is using [MIT License](LICENSE.md)
