@@ -15,3 +15,20 @@ export const timeFormat = (number: number) => {
     .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   return durationTime;
 };
+
+// make a request to localStorage to get the time of the last API update request
+export const getLastUpdatedDate = (name: string) => {
+  const dataLastUpdatedDate = localStorage.getItem(name);
+  if (dataLastUpdatedDate) {
+    return Number(JSON.parse(dataLastUpdatedDate));
+  }
+};
+
+// returns "true" if the difference between the current time and the time of the last API update request
+// is greater than 24 hours; otherwise, it returns "false"
+export const isDiffMoreThanDay = (getLastUpdatedDate: Function) => {
+  const currentTime = new Date().getTime();
+  const twentyFourHours = 24 * 60 * 60 * 1000;
+  const diffTime = currentTime - (getLastUpdatedDate(getLastUpdatedDate) as number);
+  return diffTime >= twentyFourHours;
+};

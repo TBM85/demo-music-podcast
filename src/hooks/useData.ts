@@ -4,28 +4,20 @@ import {
 } from "../utils/api";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPodcasts } from "../store/features/podcastsSlice";
-import { podcastsArr } from '../store/features/podcastsSlice';
-import { isPodcastsLoading } from '../store/features/podcastsSlice';
+import { getPodcasts, podcastsArr, isPodcastsLoading } from '../store/features/podcastsSlice';
 import { AppDispatch } from "../store/store";
+import { getLastUpdatedDate, isDiffMoreThanDay } from "../utils/utils";
 
 const useData = () => {
-  const podcastListArr = useSelector(podcastsArr);
+  const podcastList = useSelector(podcastsArr);
   const loadingPodcasts = useSelector(isPodcastsLoading);
   const dispatch: AppDispatch = useDispatch();
   const { podcastId, episodeId } = useParams();
-  const [podcastList, setPodcastList] = useState<PodcastProps[]>(podcastListArr);
   const [selectedPodcast, setSelectedPodcast] = useState<PodcastProps>();
   const [podcastEpisodes, setPodcastEpisodes] = useState<EpisodeProps[]>();
   const [selectedEpisode, setSelectedEpisode] = useState<EpisodeProps>();
   const [loadingEpisodes, setLoadingEpisodes] = useState<boolean>(true);
   const [selectedEpisodesId, setSelectedEpisodesId] = useState<string>();
-
-  // make an API request to get the list of podcasts
-  const getPodcastListFromAPI = useCallback(async () => {
-    dispatch(getPodcasts());
-    setPodcastList(podcastListArr);
-  }, [dispatch, podcastListArr]);
 
   // make an API request to get the list of episodes for each podcast
   const getPodcastEpisodesFromAPI = useCallback(async () => {
@@ -36,14 +28,6 @@ const useData = () => {
       setPodcastEpisodes(podcastEpisodesData);
     }
   }, [podcastId]);
-
-  // make a request to localStorage to get the list of podcasts
-  const getPodcastListFromLocalStorage = () => {
-    const dataPodcastArr = localStorage.getItem("podcastArr");
-    if (dataPodcastArr) {
-      setPodcastList(JSON.parse(dataPodcastArr));
-    }
-  };
 
   // make a request to localStorage to get the list of episodes
   const getPodcastEpisodesFromLocalStorage = () => {
@@ -73,17 +57,7 @@ const useData = () => {
     }
   }, [episodeId, podcastEpisodes]);
 
-  // make a request to localStorage to get the time of the last API update request
-  const getLastUpdatedDate = (name: string) => {
-    const dataLastUpdatedDate = localStorage.getItem(name);
-    if (dataLastUpdatedDate) {
-      return Number(JSON.parse(dataLastUpdatedDate));
-    }
-  };
-  const getLastUpdatedPodcastsDate = useCallback(
-    () => getLastUpdatedDate("lastUpdatedPodcastsDate"),
-    []
-  );
+  // make a request to localStorage to get the time of the last API update request for the episodes
   const getLastUpdatedEpisodesDate = useCallback(
     () => getLastUpdatedDate("lastUpdatedEpisodesDate"),
     []
@@ -98,33 +72,9 @@ const useData = () => {
 
   // returns "true" if the difference between the current time and the time of the last API update request
   // is greater than 24 hours; otherwise, it returns "false"
-  const isDiffMoreThanDay = useCallback((getLastUpdatedDate: Function) => {
-    const currentTime = new Date().getTime();
-    const twentyFourHours = 24 * 60 * 60 * 1000;
-    const diffTime = currentTime - (getLastUpdatedDate() as number);
-    return diffTime >= twentyFourHours;
-  }, []);
-
-  const isPodcastsDiffMoreThanDay = isDiffMoreThanDay(
-    getLastUpdatedPodcastsDate
-  );
   const isEpisodesDiffMoreThanDay = isDiffMoreThanDay(
     getLastUpdatedEpisodesDate
   );
-
-  // request API data, if this is the first request or more than 24 hours have passed since the last request
-  // request data from localstorage, if 24 hours haven't passed since the last request
-  useEffect(() => {
-    if (!getLastUpdatedPodcastsDate() || isPodcastsDiffMoreThanDay) {
-      getPodcastListFromAPI();
-    } else {
-      getPodcastListFromLocalStorage();
-    }
-  }, [
-    getLastUpdatedPodcastsDate,
-    getPodcastListFromAPI,
-    isPodcastsDiffMoreThanDay,
-  ]);
 
   useEffect(() => {
     if (
@@ -161,6 +111,10 @@ const useData = () => {
   useEffect(() => {
     setLoadingEpisodes(false);
   }, [podcastEpisodes]);
+
+  useEffect(() => {
+    dispatch(getPodcasts());
+  }, [dispatch]);
 
   return {
     podcastList,
